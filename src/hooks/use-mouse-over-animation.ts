@@ -1,11 +1,11 @@
-import { MotionStyle, useAnimate } from "motion/react";
+import { MotionStyle, transform, useAnimate } from "motion/react";
 import { useEventListener } from "usehooks-ts";
 
 const FIXED_PERSPECTIVE_STYLE: MotionStyle = {
   transformPerspective: "5cm",
 };
 
-export function useMouseOverAnimation() {
+export function useMouseOverAnimation(increaseRatting: number = 1) {
   const [scope, animate] = useAnimate<HTMLElement>();
 
   useEventListener(
@@ -13,15 +13,28 @@ export function useMouseOverAnimation() {
     (event: PointerEvent) => {
       const { width, height } = scope.current!.getBoundingClientRect();
 
-      const xRatting = event.offsetY / height;
-      const yRatting = event.offsetX / width;
+      const xr = transform(
+        event.offsetY / height,
+        [0, 1],
+        [-5 * increaseRatting, 5 * increaseRatting],
+      );
+      const yr = transform(
+        event.offsetX / width,
+        [0, 1],
+        [5 * increaseRatting, -5 * increaseRatting],
+      );
+      const zr = transform(
+        event.offsetX / width,
+        [0, 1],
+        [1 * increaseRatting, -1 * increaseRatting],
+      );
 
       animate(
         scope.current,
         {
-          rotateX: `${10 * xRatting - 5}deg`,
-          rotateY: `${(10 * yRatting - 5) * -1}deg`,
-          rotateZ: `${2 * yRatting - 1}deg`,
+          rotateX: `${xr}deg`,
+          rotateY: `${yr}deg`,
+          rotateZ: `${zr}deg`,
           scale: 1.05,
           zIndex: 20,
         },
