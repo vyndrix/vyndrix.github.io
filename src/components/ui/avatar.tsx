@@ -1,23 +1,26 @@
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import { motion } from "motion/react";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Avatar = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root>) => {
-  return (
-    <AvatarPrimitive.Root
-      data-slot="avatar"
-      className={cn(
-        "transition-colors delay-700 bg-muted relative flex shrink-0 overflow-hidden rounded-full size-24 border border-muted/50 self-center",
-        className,
-      )}
-      {...props}
-    />
-  );
-};
+const Avatar = motion.create(
+  ({
+    className,
+    ...props
+  }: React.ComponentProps<typeof AvatarPrimitive.Root>) => {
+    return (
+      <AvatarPrimitive.Root
+        data-slot="avatar"
+        className={cn(
+          "transition-colors delay-700 bg-muted relative flex shrink-0 overflow-hidden rounded-full size-24 border border-muted/50 self-center",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
 
 const Image = ({
   className,
