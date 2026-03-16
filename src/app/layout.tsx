@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import { Header } from "@/components/header";
 import { Providers } from "@/components/providers";
+import { Analytics } from "@/scripts/Analytics";
 import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
@@ -105,6 +106,7 @@ export default function RootLayout({ children }: Props) {
           {children}
         </Providers>
       </body>
+      <Analytics />
     </html>
   );
 }

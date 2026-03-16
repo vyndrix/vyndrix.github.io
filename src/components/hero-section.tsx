@@ -1,4 +1,5 @@
 import { aerostats } from "@/data/aerostats";
+import { useMouseOverAnimation } from "@/hooks/use-mouse-over-animation";
 import AvatarSource from "@/public/avatar.jpg";
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -11,7 +12,6 @@ import { Aerostat } from "./aerostat";
 import { useFloatPositionObserver } from "./aerostat/use-aerostat-postition-observer";
 import { Avatar, Dialog, Section } from "./ui";
 import { Base } from "./ui/base";
-import { useMouseOverAnimation } from "@/hooks/use-mouse-over-animation";
 
 export function HeroSection() {
   const { _ } = useLingui();
@@ -23,7 +23,11 @@ export function HeroSection() {
     <Section>
       <Dialog open={open} onOpenChange={setOpen}>
         <Avatar ref={scope} style={style}>
-          <Dialog.Trigger className="cursor-pointer" asChild>
+          <Dialog.Trigger
+            data-umami-event="avatar-click"
+            className="cursor-pointer"
+            asChild
+          >
             <Avatar.Image src={AvatarSource.src} alt={imageAlt} />
           </Dialog.Trigger>
           <Avatar.Fallback delayMs={1500}>

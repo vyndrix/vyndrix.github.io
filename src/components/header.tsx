@@ -18,13 +18,25 @@ export function Header() {
   return (
     <header className="flex justify-between sm:justify-end top-0 p-4 gap-2">
       <div className="flex gap-2">
-        <Button onClick={openGitHub}>
+        <Button
+          data-umami-event="social-media-click"
+          data-umami-event-social="github"
+          onClick={openGitHub}
+        >
           <Icon icon="github" className="h-[1.2rem] w-[1.2rem]" />
         </Button>
-        <Button onClick={openLinkedin}>
+        <Button
+          data-umami-event="social-media-click"
+          data-umami-event-social="linkedin"
+          onClick={openLinkedin}
+        >
           <Icon icon="linkedin" className="h-[1.2rem] w-[1.2rem]" />
         </Button>
-        <Button onClick={openEmail}>
+        <Button
+          data-umami-event="social-media-click"
+          data-umami-event-social="email"
+          onClick={openEmail}
+        >
           <Mail className="h-[1.2rem] w-[1.2rem]" />
         </Button>
       </div>
