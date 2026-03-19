@@ -6,7 +6,7 @@ import { LocaleSwitch } from "./locale-switch";
 import ThemeSwitch from "./theme-switch";
 import { Button, Icon } from "./ui";
 
-const LINKEDIN_URI = "https://www.linkedin.com/in/ramon-fernandes-40a6b5122/";
+const LINKEDIN_URI = "https://www.linkedin.com/in/ramonfersouza/";
 const GITHUB_URI = "https://github.com/vyndrix";
 const EMAIL_URI = "mailto:ramonfersouza@gmail.com";
 
