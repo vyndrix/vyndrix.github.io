@@ -1,4 +1,4 @@
-import { render } from "@/test/utils";
+import { render } from "@/tests/utils";
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Switch } from "../..";

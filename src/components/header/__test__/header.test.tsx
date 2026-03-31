@@ -4,7 +4,7 @@ import { afterEach, describe, expect, test, vi } from "vitest";
 
 import { Header } from "../header";
 
-import { render } from "@/test/utils";
+import { render } from "@/tests/utils";
 
 vi.mock("../../ui", () => ({
   Button: (props: ComponentProps<"button">) => <button {...props} />,

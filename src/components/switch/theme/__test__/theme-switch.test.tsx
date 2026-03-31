@@ -1,4 +1,4 @@
-import { render, renderHook } from "@/test/utils";
+import { render, renderHook } from "@/tests/utils";
 import { fireEvent, screen } from "@testing-library/react";
 import { useTheme } from "next-themes";
 import { describe, expect, test } from "vitest";
