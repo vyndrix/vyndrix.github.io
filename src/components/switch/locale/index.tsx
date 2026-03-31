@@ -1,12 +1,12 @@
 import { useLocale } from "@/i18n/use-locale";
 import { AnimatePresence, motion, TargetAndTransition } from "motion/react";
-import { Button } from "./ui";
+import { Button } from "../../ui";
 
-export const LocaleSwitch = () => {
+export default function LocaleSwitch() {
   const { locale, toggleLocale } = useLocale();
 
   return (
-    <Button onClick={toggleLocale}>
+    <Button id="btn" onClick={toggleLocale}>
       <AnimatePresence initial={false}>
         {locale === "pt-BR" ? (
           <Locale
@@ -33,7 +33,7 @@ export const LocaleSwitch = () => {
       </AnimatePresence>
     </Button>
   );
-};
+}
 
 const Locale = ({
   children,

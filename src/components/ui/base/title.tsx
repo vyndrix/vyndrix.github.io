@@ -18,7 +18,7 @@ const variants = cva("transition-colors delay-700 text-foreground", {
 
 export default function Title({
   className,
-  size = "lg",
+  size,
   ...props
 }: React.ComponentProps<"h1"> & VariantProps<typeof variants>) {
   const classes = cn(variants({ size, className }));

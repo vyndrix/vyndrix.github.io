@@ -7,6 +7,7 @@
     "build": "next build --webpack",
     "lint": "eslint",
     "test": "vitest",
+    "test:update": "vitest -u",
     "lingui:extract": "lingui extract --clean",
     "lingui:compile": "lingui compile --typescript --output-prefix ''"
   },

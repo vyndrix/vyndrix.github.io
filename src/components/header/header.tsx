@@ -2,9 +2,8 @@
 
 import { useURI } from "@/hooks/use-uri";
 import { Mail } from "lucide-react";
-import { LocaleSwitch } from "./locale-switch";
-import ThemeSwitch from "./theme-switch";
-import { Button, Icon } from "./ui";
+import { Switch } from "../switch";
+import { Button, Icon } from "../ui";
 
 const LINKEDIN_URI = "https://www.linkedin.com/in/ramonfersouza/";
 const GITHUB_URI = "https://github.com/vyndrix";
@@ -16,33 +15,47 @@ export function Header() {
   const openEmail = useURI(EMAIL_URI, "_self");
 
   return (
-    <header className="flex justify-between sm:justify-end top-0 p-4 gap-2">
-      <div className="flex gap-2">
+    <header
+      role="header"
+      className="flex justify-between sm:justify-end top-0 p-4 gap-2"
+    >
+      <div role="group" aria-label="social-links-group" className="flex gap-2">
         <Button
+          aria-label="Github Profile"
           data-umami-event="social-media-click"
           data-umami-event-social="github"
           onClick={openGitHub}
         >
-          <Icon icon="github" className="h-[1.2rem] w-[1.2rem]" />
+          <Icon
+            icon="github"
+            aria-hidden={true}
+            className="h-[1.2rem] w-[1.2rem]"
+          />
         </Button>
         <Button
+          aria-label="Linkedin Profile"
           data-umami-event="social-media-click"
           data-umami-event-social="linkedin"
           onClick={openLinkedin}
         >
-          <Icon icon="linkedin" className="h-[1.2rem] w-[1.2rem]" />
+          <Icon
+            icon="linkedin"
+            aria-hidden={true}
+            className="h-[1.2rem] w-[1.2rem]"
+          />
         </Button>
         <Button
+          aria-label="Email Me"
           data-umami-event="social-media-click"
           data-umami-event-social="email"
           onClick={openEmail}
         >
-          <Mail className="h-[1.2rem] w-[1.2rem]" />
+          <Mail aria-hidden={true} className="h-[1.2rem] w-[1.2rem]" />
         </Button>
       </div>
-      <div className="flex gap-2">
-        <LocaleSwitch />
-        <ThemeSwitch />
+      <div role="group" aria-label="preferences-group" className="flex gap-2">
+        <Switch.Locale />
+        <Switch.Theme />
       </div>
     </header>
   );

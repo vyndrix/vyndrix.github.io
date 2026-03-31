@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import { Header } from "@/components/header";
+import { Header } from "@/components/header/header";
 import { Providers } from "@/components/providers";
 import { Analytics } from "@/scripts/Analytics";
 import { Metadata, Viewport } from "next";
