@@ -51,5 +51,5 @@ export type IconsNames = keyof typeof sources;
 
 export default function Icon({ icon, className }: Props) {
   const Comp = sources[icon];
-  return <Comp focusable={false} className={cn("w-6 h-6", className)} />;
+  return <Comp role="img" aria-label={icon} focusable={false} className={cn("w-6 h-6", className)} />;
 }
