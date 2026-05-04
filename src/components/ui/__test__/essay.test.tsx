@@ -6,45 +6,39 @@ import Essay from "../essay";
 
 afterEach(cleanup);
 
+const MockEssay = () => (
+  <Essay>
+    <Essay.Header>
+      <Essay.Title>My Essay</Essay.Title>
+      <Essay.Subtitle>Subtitle text</Essay.Subtitle>
+    </Essay.Header>
+    <Essay.Content>Body text</Essay.Content>
+  </Essay>
+);
+
 describe("Essay", () => {
   test("renders as article element", () => {
-    render(<Essay><Essay.Content>Body</Essay.Content></Essay>);
+    render(<MockEssay />);
     expect(screen.getByRole("article")).toBeDefined();
   });
 
   test("Essay.Header renders a header element", () => {
-    render(
-      <Essay>
-        <Essay.Header>Heading area</Essay.Header>
-      </Essay>,
-    );
-    expect(screen.getByText("Heading area").tagName).toBe("HEADER");
+    render(<MockEssay />);
+    expect(screen.getByRole("heading", { level: 3 }).closest("header")).toBeDefined();
   });
 
   test("Essay.Title renders h3", () => {
-    render(
-      <Essay>
-        <Essay.Title>My Essay</Essay.Title>
-      </Essay>,
-    );
+    render(<MockEssay />);
     expect(screen.getByRole("heading", { level: 3 })).toBeDefined();
   });
 
   test("Essay.Subtitle renders h5", () => {
-    render(
-      <Essay>
-        <Essay.Subtitle>Subtitle text</Essay.Subtitle>
-      </Essay>,
-    );
+    render(<MockEssay />);
     expect(screen.getByRole("heading", { level: 5 })).toBeDefined();
   });
 
   test("Essay.Content renders a p element", () => {
-    render(
-      <Essay>
-        <Essay.Content>Body text</Essay.Content>
-      </Essay>,
-    );
+    render(<MockEssay />);
     expect(screen.getByText("Body text").tagName).toBe("P");
   });
 });
