@@ -41,4 +41,18 @@ describe("Essay", () => {
     render(<MockEssay />);
     expect(screen.getByText("Body text").tagName).toBe("P");
   });
+
+  test("applies static article classes", () => {
+    render(<MockEssay />);
+    const classes = screen.getByRole("article").getAttribute("class") ?? "";
+    expect(classes).toContain("flex");
+    expect(classes).toContain("flex-col");
+    expect(classes).toContain("gap-2");
+  });
+
+  test("applies static content classes", () => {
+    render(<MockEssay />);
+    const classes = screen.getByText("Body text").getAttribute("class") ?? "";
+    expect(classes).toContain("text-muted-foreground");
+  });
 });

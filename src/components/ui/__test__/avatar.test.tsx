@@ -56,4 +56,18 @@ describe("Avatar", () => {
     const fallback = screen.getByText("VX");
     expect(fallback).toBeDefined();
   });
+
+  test("applies static avatar classes", () => {
+    const { container } = render(<MockAvatar src="https://example.com/avatar.png" />);
+
+    const rootClasses = container.querySelector("[data-slot='avatar']")?.getAttribute("class") ?? "";
+    expect(rootClasses).toContain("rounded-full");
+    expect(rootClasses).toContain("overflow-hidden");
+    expect(rootClasses).toContain("size-24");
+
+    const imgClasses = screen.getByRole("img").getAttribute("class") ?? "";
+    expect(imgClasses).toContain("h-full");
+    expect(imgClasses).toContain("w-full");
+    expect(imgClasses).toContain("object-cover");
+  });
 });

@@ -24,4 +24,13 @@ describe("Button", () => {
     const link = screen.getByRole("link", { name: "Link" });
     expect(link).toBeDefined();
   });
+
+  test("applies static button classes", () => {
+    render(<Button>Click me</Button>);
+    const classes = screen.getByRole("button", { name: "Click me" }).getAttribute("class") ?? "";
+    expect(classes).toContain("inline-flex");
+    expect(classes).toContain("items-center");
+    expect(classes).toContain("rounded-md");
+    expect(classes).toContain("text-sm");
+  });
 });

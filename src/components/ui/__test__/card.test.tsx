@@ -80,4 +80,21 @@ describe("Card", () => {
 
     expect(screen.getByRole("heading", { level: 4 })).toBeDefined();
   });
+
+  test("applies static card classes", () => {
+    render(<Card><Card.Content>Description</Card.Content></Card>);
+    const classes = screen.getByRole("article").getAttribute("class") ?? "";
+    expect(classes).toContain("flex");
+    expect(classes).toContain("flex-col");
+    expect(classes).toContain("p-4");
+    expect(classes).toContain("bg-background");
+    expect(classes).toContain("border");
+  });
+
+  test("applies static content classes", () => {
+    render(<Card><Card.Content>Description</Card.Content></Card>);
+    const classes = screen.getByText("Description").getAttribute("class") ?? "";
+    expect(classes).toContain("text-sm");
+    expect(classes).toContain("text-muted-foreground");
+  });
 });

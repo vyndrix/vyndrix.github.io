@@ -35,6 +35,18 @@ describe("Badge", () => {
     expect(icon).toBeDefined();
   });
 
+  test("applies static badge classes", () => {
+    render(
+      <Badge>
+        <Badge.Text>JavaScript</Badge.Text>
+      </Badge>,
+    );
+    const classes = screen.getByText("JavaScript").parentElement?.getAttribute("class") ?? "";
+    expect(classes).toContain("flex");
+    expect(classes).toContain("bg-secondary");
+    expect(classes).toContain("text-xs");
+  });
+
   test("groups multiple badges", () => {
     render(
       <Badge.Group>
