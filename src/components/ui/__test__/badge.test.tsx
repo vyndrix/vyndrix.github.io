@@ -12,35 +12,26 @@ vi.mock("../icon", () => ({
   default: ({ icon }: { icon: string }) => <svg role="img" aria-label={icon} />,
 }));
 
+const MockBadge = () => (
+  <Badge>
+    <Badge.Icon icon="react" />
+    <Badge.Text>JavaScript</Badge.Text>
+  </Badge>
+);
+
 describe("Badge", () => {
   test("renders text content", () => {
-    render(
-      <Badge>
-        <Badge.Text>JavaScript</Badge.Text>
-      </Badge>,
-    );
-
-    const text = screen.getByText("JavaScript");
-    expect(text).toBeDefined();
+    render(<MockBadge />);
+    expect(screen.getByText("JavaScript")).toBeDefined();
   });
 
   test("renders icon", () => {
-    render(
-      <Badge>
-        <Badge.Icon icon="react" />
-      </Badge>,
-    );
-
-    const icon = screen.getByRole("img", { name: "react" });
-    expect(icon).toBeDefined();
+    render(<MockBadge />);
+    expect(screen.getByRole("img", { name: "react" })).toBeDefined();
   });
 
   test("applies static badge classes", () => {
-    render(
-      <Badge>
-        <Badge.Text>JavaScript</Badge.Text>
-      </Badge>,
-    );
+    render(<MockBadge />);
     const classes = screen.getByText("JavaScript").parentElement?.getAttribute("class") ?? "";
     expect(classes).toContain("flex");
     expect(classes).toContain("bg-secondary");
@@ -58,7 +49,6 @@ describe("Badge", () => {
         </Badge>
       </Badge.Group>,
     );
-
     expect(screen.getByText("React")).toBeDefined();
     expect(screen.getByText("TypeScript")).toBeDefined();
   });

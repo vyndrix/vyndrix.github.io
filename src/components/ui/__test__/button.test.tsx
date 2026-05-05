@@ -6,12 +6,12 @@ import Button from "../button";
 
 afterEach(cleanup);
 
+const MockButton = () => <Button>Click me</Button>;
+
 describe("Button", () => {
   test("renders a button element", () => {
-    render(<Button>Click me</Button>);
-
-    const button = screen.getByRole("button", { name: "Click me" });
-    expect(button).toBeDefined();
+    render(<MockButton />);
+    expect(screen.getByRole("button", { name: "Click me" })).toBeDefined();
   });
 
   test("renders as child element when asChild is true", () => {
@@ -20,13 +20,11 @@ describe("Button", () => {
         <a href="#">Link</a>
       </Button>,
     );
-
-    const link = screen.getByRole("link", { name: "Link" });
-    expect(link).toBeDefined();
+    expect(screen.getByRole("link", { name: "Link" })).toBeDefined();
   });
 
   test("applies static button classes", () => {
-    render(<Button>Click me</Button>);
+    render(<MockButton />);
     const classes = screen.getByRole("button", { name: "Click me" }).getAttribute("class") ?? "";
     expect(classes).toContain("inline-flex");
     expect(classes).toContain("items-center");
