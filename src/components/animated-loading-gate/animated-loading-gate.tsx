@@ -18,6 +18,7 @@ export function AnimatedLoadingGate({ children }: Props) {
     <AnimatePresence>
       {isClient && (
         <motion.div
+          data-slot="animated-loading-gate"
           initial={{ opacity: 0, scale: 0.98, filter: "blur(8px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{

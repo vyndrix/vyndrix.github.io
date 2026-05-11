@@ -22,6 +22,7 @@ test.describe("Screen", () => {
   test("reduced-motion: reaches full opacity instantly", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
+    await page.locator("main > div").waitFor();
     await expect(page.locator("main > div")).toHaveCSS("opacity", "1", {
       timeout: 200,
     });
