@@ -2,9 +2,17 @@ import path from "path";
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
+import babel from "@rolldown/plugin-babel";
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), react()],
+  plugins: [
+    tsconfigPaths(),
+    react(),
+    babel({
+      include: [/\.(t|j)sx?$/],
+      plugins: ["@lingui/babel-plugin-lingui-macro"],
+    }),
+  ],
   test: {
     environment: "jsdom",
     setupFiles: "src/tests/setup.ts",

@@ -8,10 +8,10 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { AnimatePresence } from "motion/react";
 import NextImage from "next/image";
 import { useState } from "react";
-import { Aerostat } from "./aerostat";
-import { useFloatPositionObserver } from "./aerostat/use-aerostat-postition-observer";
-import { Avatar, Dialog, Section } from "./ui";
-import { Base } from "./ui/base";
+import { Aerostat } from "../aerostat";
+import { useFloatPositionObserver } from "../aerostat/use-aerostat-postition-observer";
+import { Avatar, Dialog, Section } from "../ui";
+import { Base } from "../ui/base";
 
 export function HeroSection() {
   const { _ } = useLingui();
@@ -25,16 +25,19 @@ export function HeroSection() {
         <Avatar ref={scope} style={style}>
           <Dialog.Trigger
             data-umami-event="avatar-click"
-            className="cursor-pointer"
-            asChild
+            className="cursor-pointer rounded-full size-full"
+            aria-label={imageAlt}
           >
-            <Avatar.Image src={AvatarSource.src} alt={imageAlt} />
+            <Avatar.Image src={AvatarSource.src} alt="" />
           </Dialog.Trigger>
           <Avatar.Fallback delayMs={1500}>
             <span className="text-3xl">RF</span>
           </Avatar.Fallback>
         </Avatar>
-        <Dialog.Content showCloseButton={false} aria-describedby={undefined}>
+        <Dialog.Content
+          showCloseButton={false}
+          aria-describedby="hero-dialog-desc"
+        >
           <VisuallyHidden asChild>
             <Dialog.Title>
               <Trans>Vyndrix | Ramon Fernandes picture</Trans>
@@ -44,7 +47,10 @@ export function HeroSection() {
             <HeroDialogImage open={open} />
           </Aerostat.Provider>
           <Dialog.Footer className="flex justify-center">
-            <span className="text-center text-xs text-foreground">
+            <span
+              id="hero-dialog-desc"
+              className="text-center text-xs text-foreground"
+            >
               <Trans>
                 Enjoying the day with my girlfriend at the sports store
               </Trans>
