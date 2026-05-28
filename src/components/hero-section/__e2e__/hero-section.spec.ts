@@ -46,17 +46,17 @@ test.describe("HeroSection", () => {
     // Stagger is 150ms between aerostats; 6 aerostats; ~1100ms full
     // maxDiffPixelRatio tolerates floating useAnimationFrame jitter on Aerostat.Dialog
     await page.clock.runFor(200); // first 1-2 aerostats appearing
-    await expect(dialog).toHaveScreenshot("aerostats-stagger-early.png", {
+    await expect(dialog).toHaveScreenshot("hero-section-aerostats-early.png", {
       maxDiffPixelRatio: 0.05,
     });
 
     await page.clock.runFor(450); // mid stagger
-    await expect(dialog).toHaveScreenshot("aerostats-stagger-mid.png", {
+    await expect(dialog).toHaveScreenshot("hero-section-aerostats-mid.png", {
       maxDiffPixelRatio: 0.05,
     });
 
     await page.clock.runFor(700); // all settled
-    await expect(dialog).toHaveScreenshot("aerostats-stagger-late.png", {
+    await expect(dialog).toHaveScreenshot("hero-section-aerostats-late.png", {
       maxDiffPixelRatio: 0.05,
     });
   });
