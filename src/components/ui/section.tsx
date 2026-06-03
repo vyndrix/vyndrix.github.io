@@ -5,7 +5,11 @@ const Section = ({ children }: { children?: React.ReactNode }) => {
 };
 
 const Content = ({ children }: { children: React.ReactNode }) => {
-  return <div className="flex flex-col px-2 gap-6">{children}</div>;
+  return (
+    <div data-testid="section-content" className="flex flex-col px-2 gap-6">
+      {children}
+    </div>
+  );
 };
 
 const Title = ({ children }: { children: React.ReactNode }) => {

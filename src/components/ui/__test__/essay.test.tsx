@@ -19,27 +19,29 @@ const MockEssay = () => (
 describe("Essay", () => {
   test("renders as article element", () => {
     render(<MockEssay />);
-    expect(screen.getByRole("article")).toBeDefined();
+    expect(screen.getByRole("article").tagName).toBe("ARTICLE");
   });
 
-  test("Essay.Header renders a header element", () => {
+  test("Essay.Header wraps the title in a header element", () => {
     render(<MockEssay />);
-    expect(screen.getByRole("heading", { level: 3 }).closest("header")).toBeDefined();
+    expect(
+      screen.getByRole("heading", { level: 3 }).closest("header"),
+    ).not.toBeNull();
   });
 
   test("Essay.Title renders h3", () => {
     render(<MockEssay />);
-    expect(screen.getByRole("heading", { level: 3 })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 3 }).tagName).toBe("H3");
   });
 
   test("Essay.Subtitle renders h5", () => {
     render(<MockEssay />);
-    expect(screen.getByRole("heading", { level: 5 })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 5 }).tagName).toBe("H5");
   });
 
   test("Essay.Content renders a p element", () => {
     render(<MockEssay />);
-    expect(screen.getByText("Body text").tagName).toBe("P");
+    expect(screen.getByTestId("essay-content").tagName).toBe("P");
   });
 
   test("applies static article classes", () => {
@@ -52,7 +54,7 @@ describe("Essay", () => {
 
   test("applies static content classes", () => {
     render(<MockEssay />);
-    const classes = screen.getByText("Body text").getAttribute("class") ?? "";
+    const classes = screen.getByTestId("essay-content").getAttribute("class") ?? "";
     expect(classes).toContain("text-muted-foreground");
   });
 });

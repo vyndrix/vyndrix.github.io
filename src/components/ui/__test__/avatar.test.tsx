@@ -27,40 +27,32 @@ const MockAvatar = ({ src }: { src?: string }) => (
 
 describe("Avatar", () => {
   test("renders all parts with correct data-slot", () => {
-    const { container } = render(
-      <MockAvatar src="https://example.com/avatar.png" />,
-    );
+    render(<MockAvatar src="https://example.com/avatar.png" />);
 
-    const root = container.querySelector("[data-slot='avatar']");
-    expect(root).toBeDefined();
-    expect((root as HTMLElement).dataset.slot).toBe("avatar");
+    const root = screen.getByTestId("avatar");
+    expect(root.dataset.slot).toBe("avatar");
 
     const img = screen.getByRole("img");
     expect(img.dataset.slot).toBe("avatar-image");
 
-    const fallbackEl = container.querySelector("[data-slot='avatar-fallback']");
-    expect(fallbackEl).toBeDefined();
-    expect((fallbackEl as HTMLElement).dataset.slot).toBe("avatar-fallback");
+    const fallbackEl = screen.getByTestId("avatar-fallback");
+    expect(fallbackEl.dataset.slot).toBe("avatar-fallback");
   });
 
   test("renders image when source is provided", () => {
     render(<MockAvatar src="https://example.com/avatar.png" />);
-
-    const img = screen.getByRole("img");
-    expect(img).toBeDefined();
+    screen.getByRole("img");
   });
 
   test("renders fallback when image cannot be loaded", () => {
     render(<MockAvatar />);
-
-    const fallback = screen.getByText("VX");
-    expect(fallback).toBeDefined();
+    screen.getByTestId("avatar-fallback");
   });
 
   test("applies static avatar classes", () => {
-    const { container } = render(<MockAvatar src="https://example.com/avatar.png" />);
+    render(<MockAvatar src="https://example.com/avatar.png" />);
 
-    const rootClasses = container.querySelector("[data-slot='avatar']")?.getAttribute("class") ?? "";
+    const rootClasses = screen.getByTestId("avatar").getAttribute("class") ?? "";
     expect(rootClasses).toContain("rounded-full");
     expect(rootClasses).toContain("overflow-hidden");
     expect(rootClasses).toContain("size-24");

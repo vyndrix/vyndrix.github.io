@@ -68,6 +68,12 @@ vi.mock("../../aerostat/use-aerostat-postition-observer", () => ({
   useFloatPositionObserver: () => undefined,
 }));
 
+const openDialog = (name: string) => {
+  act(() => {
+    fireEvent.click(screen.getByRole("button", { name }));
+  });
+};
+
 describe("HeroSection", () => {
   test("trigger is a button labelled by avatar alt text", () => {
     render(<HeroSection />);
@@ -77,44 +83,27 @@ describe("HeroSection", () => {
   });
 
   test("dialog is closed initially (content not in DOM)", () => {
-    const { container } = render(<HeroSection />);
-    expect(container.querySelector("[data-slot='dialog-content']")).toBeNull();
+    render(<HeroSection />);
+    expect(screen.queryByRole("dialog")).toBeNull();
   });
 
   test("clicking trigger opens the dialog", () => {
     render(<HeroSection />);
-    act(() => {
-      fireEvent.click(
-        screen.getByRole("button", { name: "Vyndrix's picture" }),
-      );
-    });
-    expect(screen.getByRole("dialog")).toBeDefined();
+    openDialog("Vyndrix's picture");
+    screen.getByRole("dialog");
   });
 
   test("opened dialog has accessible name from VisuallyHidden title", () => {
     render(<HeroSection />);
-    act(() => {
-      fireEvent.click(
-        screen.getByRole("button", { name: "Vyndrix's picture" }),
-      );
-    });
-    expect(
-      screen.getByRole("dialog", {
-        name: "Vyndrix | Ramon Fernandes picture",
-      }),
-    ).toBeDefined();
+    openDialog("Vyndrix's picture");
+    screen.getByRole("dialog", { name: "Vyndrix | Ramon Fernandes picture" });
   });
 
   test("dialog title is visually hidden but present in the a11y tree", () => {
     render(<HeroSection />);
-    act(() => {
-      fireEvent.click(
-        screen.getByRole("button", { name: "Vyndrix's picture" }),
-      );
-    });
-    const title = screen.getByText("Vyndrix | Ramon Fernandes picture");
+    openDialog("Vyndrix's picture");
+    const title = screen.getByRole("heading");
     expect(title.dataset.slot).toBe("dialog-title");
-    // VisuallyHidden applies inline sr-only-equivalent styles
     expect(title.style.position).toBe("absolute");
     expect(title.style.width).toBe("1px");
     expect(title.style.height).toBe("1px");
@@ -122,46 +111,39 @@ describe("HeroSection", () => {
 
   test("dialog is described by the footer caption", () => {
     render(<HeroSection />);
-    act(() => {
-      fireEvent.click(
-        screen.getByRole("button", { name: "Vyndrix's picture" }),
-      );
-    });
+    openDialog("Vyndrix's picture");
     const dialog = screen.getByRole("dialog");
-    const caption = screen.getByText(/Enjoying the day/i);
-    // Verify the a11y wire: dialog's aria-describedby resolves to the caption
+    const caption = screen.getByTestId("hero-dialog-caption");
     expect(dialog.getAttribute("aria-describedby")).toBe(caption.id);
   });
 
-  test("renders outer copy in en-US by default", () => {
+  test("en-US: outer copy", () => {
     render(<Composed />);
     expect(
       screen.getByRole("button", { name: "Vyndrix's picture" }),
     ).toBeDefined();
-    expect(screen.getByText("Hi, I'm Ramon")).toBeDefined();
-    expect(
-      screen.getByText(/A frontend and mobile developer focused/i).tagName,
-    ).toBe("P");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
+      "Hi, I'm Ramon",
+    );
+    const bio = screen.getByTestId("hero-section-bio");
+    expect(bio.tagName).toBe("P");
+    expect(bio.textContent).toContain(
+      "A frontend and mobile developer focused",
+    );
   });
 
-  test("renders inner copy in en-US when dialog opens", () => {
+  test("en-US: inner copy when dialog opens", () => {
     render(<Composed />);
-    act(() => {
-      fireEvent.click(
-        screen.getByRole("button", { name: "Vyndrix's picture" }),
-      );
-    });
-    expect(
-      screen.getByText("Vyndrix | Ramon Fernandes picture"),
-    ).toBeDefined();
-    expect(
-      screen.getByText(
-        "Enjoying the day with my girlfriend at the sports store",
-      ),
-    ).toBeDefined();
+    openDialog("Vyndrix's picture");
+    expect(screen.getByRole("heading").textContent).toBe(
+      "Vyndrix | Ramon Fernandes picture",
+    );
+    expect(screen.getByTestId("hero-dialog-caption").textContent).toBe(
+      "Enjoying the day with my girlfriend at the sports store",
+    );
   });
 
-  test("renders outer copy in pt-BR after toggling locale", () => {
+  test("pt-BR: outer copy after locale toggle", () => {
     render(<Composed />);
     act(() => {
       fireEvent.click(screen.getByRole("button", { name: "EN" }));
@@ -169,29 +151,25 @@ describe("HeroSection", () => {
     expect(
       screen.getByRole("button", { name: "Foto de Vyndrix" }),
     ).toBeDefined();
-    expect(screen.getByText("Olá, eu sou Ramon")).toBeDefined();
-    expect(
-      screen.getByText(/Desenvolvedor frontend e mobile/i).tagName,
-    ).toBe("P");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
+      "Olá, eu sou Ramon",
+    );
+    const bio = screen.getByTestId("hero-section-bio");
+    expect(bio.tagName).toBe("P");
+    expect(bio.textContent).toContain("Desenvolvedor frontend e mobile");
   });
 
-  test("renders inner copy in pt-BR when dialog opens after toggling locale", () => {
+  test("pt-BR: inner copy when dialog opens after locale toggle", () => {
     render(<Composed />);
     act(() => {
       fireEvent.click(screen.getByRole("button", { name: "EN" }));
     });
-    act(() => {
-      fireEvent.click(
-        screen.getByRole("button", { name: "Foto de Vyndrix" }),
-      );
-    });
-    expect(
-      screen.getByText("Foto de Vyndrix | Ramon Fernandes"),
-    ).toBeDefined();
-    expect(
-      screen.getByText(
-        "Aproveitando o dia com minha namorada na loja de esportes",
-      ),
-    ).toBeDefined();
+    openDialog("Foto de Vyndrix");
+    expect(screen.getByRole("heading").textContent).toBe(
+      "Foto de Vyndrix | Ramon Fernandes",
+    );
+    expect(screen.getByTestId("hero-dialog-caption").textContent).toBe(
+      "Aproveitando o dia com minha namorada na loja de esportes",
+    );
   });
 });

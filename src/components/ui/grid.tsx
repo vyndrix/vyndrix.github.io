@@ -8,6 +8,11 @@ export default function Grid({
   className?: string;
 }) {
   return (
-    <div className={cn("grid sm:grid-cols-2 gap-4", className)}>{children}</div>
+    <div
+      data-testid="grid"
+      className={cn("grid sm:grid-cols-2 gap-4", className)}
+    >
+      {children}
+    </div>
   );
 }

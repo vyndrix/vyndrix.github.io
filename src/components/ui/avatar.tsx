@@ -12,6 +12,7 @@ const Avatar = motion.create(
     return (
       <AvatarPrimitive.Root
         data-slot="avatar"
+        data-testid="avatar"
         className={cn(
           "transition-colors delay-700 bg-muted relative flex shrink-0 overflow-hidden rounded-full size-24 border border-muted/50 self-center",
           className,
@@ -42,6 +43,7 @@ const Fallback = ({
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
+      data-testid="avatar-fallback"
       className={cn(
         "bg-muted flex size-full items-center justify-center rounded-full",
         className,

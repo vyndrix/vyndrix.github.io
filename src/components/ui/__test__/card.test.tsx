@@ -18,7 +18,7 @@ const MockCard = () => (
 describe("Card", () => {
   test("renders as article element", () => {
     render(<MockCard />);
-    expect(screen.getByRole("article")).toBeDefined();
+    expect(screen.getByRole("article").tagName).toBe("ARTICLE");
   });
 
   test("renders animated variant as article element", () => {
@@ -27,27 +27,27 @@ describe("Card", () => {
         <Card.Content>Description</Card.Content>
       </Card>,
     );
-    expect(screen.getByRole("article")).toBeDefined();
+    expect(screen.getByRole("article").tagName).toBe("ARTICLE");
   });
 
   test("Card.Header renders a header element", () => {
     render(<MockCard />);
-    expect(screen.getByText("Nav").tagName).toBe("HEADER");
+    expect(screen.getByTestId("card-header").tagName).toBe("HEADER");
   });
 
   test("Card.Content renders a p element", () => {
     render(<MockCard />);
-    expect(screen.getByText("Description").tagName).toBe("P");
+    expect(screen.getByTestId("card-content").tagName).toBe("P");
   });
 
   test("Card.Footer renders a footer element", () => {
     render(<MockCard />);
-    expect(screen.getByText("Links").tagName).toBe("FOOTER");
+    expect(screen.getByTestId("card-footer").tagName).toBe("FOOTER");
   });
 
   test("Card.Title size lg renders h3", () => {
     render(<MockCard />);
-    expect(screen.getByRole("heading", { level: 3 })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 3 }).tagName).toBe("H3");
   });
 
   test("Card.Title size md renders h4", () => {
@@ -56,7 +56,7 @@ describe("Card", () => {
         <Card.Title size="md">Project</Card.Title>
       </Card>,
     );
-    expect(screen.getByRole("heading", { level: 4 })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 4 }).tagName).toBe("H4");
   });
 
   test("applies static card classes", () => {
@@ -71,7 +71,7 @@ describe("Card", () => {
 
   test("applies static content classes", () => {
     render(<MockCard />);
-    const classes = screen.getByText("Description").getAttribute("class") ?? "";
+    const classes = screen.getByTestId("card-content").getAttribute("class") ?? "";
     expect(classes).toContain("text-sm");
     expect(classes).toContain("text-muted-foreground");
   });

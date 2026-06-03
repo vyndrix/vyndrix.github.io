@@ -15,34 +15,25 @@ beforeEach(() => {
 });
 
 describe("AnimatedLoadingGate", () => {
-  test("renders children", () => {
+  test("wraps children in motion div with data-slot", () => {
     render(
       <AnimatedLoadingGate>
-        <p>content</p>
+        <span data-testid="gate-child" />
       </AnimatedLoadingGate>,
     );
-    expect(screen.getByText("content")).toBeDefined();
-  });
-
-  test("wraps children in motion div with data-slot", () => {
-    const { container } = render(
-      <AnimatedLoadingGate>
-        <p>content</p>
-      </AnimatedLoadingGate>,
-    );
-    const wrapper = container.querySelector("[data-slot='animated-loading-gate']");
-    expect(wrapper).toBeDefined();
-    expect((wrapper as HTMLElement).dataset.slot).toBe("animated-loading-gate");
+    const wrapper = screen.getByTestId("animated-loading-gate");
+    expect(wrapper.dataset.slot).toBe("animated-loading-gate");
+    expect(wrapper.contains(screen.getByTestId("gate-child"))).toBe(true);
   });
 
   test("renders nothing when not client (SSR)", () => {
     vi.mocked(useIsClient).mockReturnValue(false);
-    const { container } = render(
+    render(
       <AnimatedLoadingGate>
-        <p>content</p>
+        <span data-testid="gate-child" />
       </AnimatedLoadingGate>,
     );
-    expect(container.querySelector("[data-slot='animated-loading-gate']")).toBeNull();
-    expect(screen.queryByText("content")).toBeNull();
+    expect(screen.queryByTestId("animated-loading-gate")).toBeNull();
+    expect(screen.queryByTestId("gate-child")).toBeNull();
   });
 });

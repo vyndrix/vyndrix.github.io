@@ -22,17 +22,17 @@ const MockBadge = () => (
 describe("Badge", () => {
   test("renders text content", () => {
     render(<MockBadge />);
-    expect(screen.getByText("JavaScript")).toBeDefined();
+    expect(screen.getByTestId("badge").textContent).toContain("JavaScript");
   });
 
   test("renders icon", () => {
     render(<MockBadge />);
-    expect(screen.getByRole("img", { name: "react" })).toBeDefined();
+    screen.getByRole("img", { name: "react" });
   });
 
   test("applies static badge classes", () => {
     render(<MockBadge />);
-    const classes = screen.getByText("JavaScript").parentElement?.getAttribute("class") ?? "";
+    const classes = screen.getByTestId("badge").getAttribute("class") ?? "";
     expect(classes).toContain("flex");
     expect(classes).toContain("bg-secondary");
     expect(classes).toContain("text-xs");
@@ -49,7 +49,7 @@ describe("Badge", () => {
         </Badge>
       </Badge.Group>,
     );
-    expect(screen.getByText("React")).toBeDefined();
-    expect(screen.getByText("TypeScript")).toBeDefined();
+    screen.getByTestId("badge-group");
+    expect(screen.getAllByTestId("badge").length).toBe(2);
   });
 });

@@ -11,6 +11,7 @@ export default function LocaleSwitch() {
         {locale === "pt-BR" ? (
           <Locale
             key={locale}
+            testId="locale-pt"
             inactiveVariant={{
               scale: 0,
               rotate: 90,
@@ -22,6 +23,7 @@ export default function LocaleSwitch() {
         {locale === "en-US" ? (
           <Locale
             key={locale}
+            testId="locale-en"
             inactiveVariant={{
               scale: 0,
               rotate: -90,
@@ -38,12 +40,15 @@ export default function LocaleSwitch() {
 const Locale = ({
   children,
   inactiveVariant,
+  testId,
 }: {
   children: React.ReactNode;
   inactiveVariant: TargetAndTransition;
+  testId: string;
 }) => {
   return (
     <motion.span
+      data-testid={testId}
       className="absolute h-[1.2rem] w-[1.2rem]"
       variants={{
         active: {

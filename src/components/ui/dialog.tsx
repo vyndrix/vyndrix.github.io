@@ -16,7 +16,7 @@ function Dialog({
 function Trigger({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
-  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
+  return <DialogPrimitive.Trigger data-slot="dialog-trigger" data-testid="dialog-trigger" {...props} />;
 }
 
 function Portal({
@@ -92,6 +92,7 @@ function Footer({
   return (
     <div
       data-slot="dialog-footer"
+      data-testid="dialog-footer"
       className={cn("flex flex-col-reverse gap-2", className)}
       {...props}
     >

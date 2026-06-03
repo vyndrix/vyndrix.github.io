@@ -49,6 +49,7 @@ export function HeroSection() {
           <Dialog.Footer className="flex justify-center">
             <span
               id="hero-dialog-desc"
+              data-testid="hero-dialog-caption"
               className="text-center text-xs text-foreground"
             >
               <Trans>
@@ -61,7 +62,10 @@ export function HeroSection() {
       <Base.Title size="lg" className="self-center mt-2 mb-3">
         <Trans>Hi, I{"'"}m Ramon</Trans>
       </Base.Title>
-      <p className="transition-colors delay-700 text-lg text-center text-foreground">
+      <p
+        data-testid="hero-section-bio"
+        className="transition-colors delay-700 text-lg text-center text-foreground"
+      >
         <Trans>
           A frontend and mobile developer focused on growing as a specialist in
           modern interfaces and design-driven experiences, which is also a

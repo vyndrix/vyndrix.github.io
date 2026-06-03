@@ -31,7 +31,11 @@ const Subtitle = ({ children }: { children: React.ReactNode }) => {
 };
 
 const Content = ({ children }: { children: React.ReactNode }) => {
-  return <p className="text-md text-muted-foreground">{children}</p>;
+  return (
+    <p data-testid="essay-content" className="text-md text-muted-foreground">
+      {children}
+    </p>
+  );
 };
 
 export default Object.assign(Essay, {

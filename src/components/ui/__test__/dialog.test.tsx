@@ -25,12 +25,11 @@ const MockDialog = ({
 
 describe("Dialog", () => {
   test("renders all parts with correct data-slot", () => {
-    const { container } = render(<MockDialog />);
+    render(<MockDialog />);
 
-    // Trigger is aria-hidden when dialog is open — query by data-slot directly
-    const trigger = container.querySelector("[data-slot='dialog-trigger']");
-    expect(trigger).toBeDefined();
-    expect((trigger as HTMLElement).dataset.slot).toBe("dialog-trigger");
+    // Trigger is aria-hidden when dialog is open — query by test id
+    const trigger = screen.getByTestId("dialog-trigger");
+    expect(trigger.dataset.slot).toBe("dialog-trigger");
 
     // Content portals to document.body — Radix gives it role="dialog"
     const content = screen.getByRole("dialog");
@@ -42,13 +41,13 @@ describe("Dialog", () => {
     const close = screen.getByRole("button", { name: "Close" });
     expect(close.dataset.slot).toBe("dialog-close");
 
-    const footer = screen.getByText("Footer");
+    const footer = screen.getByTestId("dialog-footer");
     expect(footer.dataset.slot).toBe("dialog-footer");
   });
 
   test("renders close button inside Content by default", () => {
     render(<MockDialog />);
-    expect(screen.getByRole("button", { name: "Close" })).toBeDefined();
+    screen.getByRole("button", { name: "Close" });
   });
 
   test("hides close button inside Content when showCloseButton is false", () => {
@@ -58,6 +57,6 @@ describe("Dialog", () => {
 
   test("renders close button inside Footer when showCloseButton is true", () => {
     render(<MockDialog showCloseButton={false} footerCloseButton={true} />);
-    expect(screen.getByRole("button", { name: "Close" })).toBeDefined();
+    screen.getByRole("button", { name: "Close" });
   });
 });

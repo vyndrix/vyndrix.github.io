@@ -13,6 +13,8 @@ import { useAerostatPositionRatting } from "./use-aerostat-position-ratting";
 function Group({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
+      data-slot="aerostat-group"
+      data-testid="aerostat-group"
       variants={{
         inactive: {},
         active: {
@@ -72,6 +74,8 @@ function Dialog({
   return (
     <motion.div
       ref={ref}
+      data-slot="aerostat-dialog"
+      data-testid="aerostat-dialog"
       variants={{
         inactive: {
           opacity: 0,
@@ -84,12 +88,20 @@ function Dialog({
           filter: shouldReduceMotion ? "none" : "blur(0px)",
         },
       }}
+      transition={{
+        duration: shouldReduceMotion ? 0 : 0.3,
+        ease: [0.4, 0, 0.2, 1],
+      }}
       className="absolute border border-primary bg-secondary p-2 px-3 font-bold"
       style={{ right, bottom }}
     >
       <span {...props}>{children}</span>
       {withArrow && (
-        <div className="absolute -bottom-4 -right-px border-l-20 border-l-transparent border-t-16 border-t-primary" />
+        <div
+          data-slot="aerostat-arrow"
+          data-testid="aerostat-arrow"
+          className="absolute -bottom-4 -right-px border-l-20 border-l-transparent border-t-16 border-t-primary"
+        />
       )}
     </motion.div>
   );

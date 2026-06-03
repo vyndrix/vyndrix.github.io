@@ -85,7 +85,10 @@ const Title = ({
 
 const Header = ({ children }: { children: React.ReactNode }) => {
   return (
-    <header className="flex gap-2 items-center pointer-events-none">
+    <header
+      data-testid="card-header"
+      className="flex gap-2 items-center pointer-events-none"
+    >
       {children}
     </header>
   );
@@ -93,7 +96,10 @@ const Header = ({ children }: { children: React.ReactNode }) => {
 
 const Content = ({ children }: { children: React.ReactNode }) => {
   return (
-    <p className="flex flex-1 pt-0.5 pb-4 text-sm text-justify text-muted-foreground pointer-events-none">
+    <p
+      data-testid="card-content"
+      className="flex flex-1 pt-0.5 pb-4 text-sm text-justify text-muted-foreground pointer-events-none"
+    >
       {children}
     </p>
   );
@@ -101,7 +107,10 @@ const Content = ({ children }: { children: React.ReactNode }) => {
 
 const Footer = ({ children }: { children: React.ReactNode }) => {
   return (
-    <footer className="flex flex-col self-start md:self-end gap-2 pointer-events-none">
+    <footer
+      data-testid="card-footer"
+      className="flex flex-col self-start md:self-end gap-2 pointer-events-none"
+    >
       {children}
     </footer>
   );

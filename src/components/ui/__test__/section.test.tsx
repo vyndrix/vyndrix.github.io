@@ -10,7 +10,7 @@ const MockSection = () => (
   <Section>
     <Section.Title>Title</Section.Title>
     <Section.Content>
-      <p>Content</p>
+      <p data-testid="section-child" />
     </Section.Content>
   </Section>
 );
@@ -18,7 +18,7 @@ const MockSection = () => (
 describe("Section", () => {
   test("Section.Title renders h2", () => {
     render(<MockSection />);
-    expect(screen.getByRole("heading", { level: 2 })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 2 }).tagName).toBe("H2");
   });
 
   test("applies static section classes", () => {
@@ -32,7 +32,7 @@ describe("Section", () => {
 
   test("applies static content classes", () => {
     render(<MockSection />);
-    const classes = screen.getByText("Content").parentElement?.getAttribute("class") ?? "";
+    const classes = screen.getByTestId("section-content").getAttribute("class") ?? "";
     expect(classes).toContain("flex");
     expect(classes).toContain("flex-col");
     expect(classes).toContain("px-2");

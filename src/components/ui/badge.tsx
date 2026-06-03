@@ -11,6 +11,7 @@ interface Props {
 const Badge = ({ children, className }: Props) => {
   return (
     <span
+      data-testid="badge"
       className={cn(
         `flex
         transition-color
@@ -39,7 +40,12 @@ const Badge = ({ children, className }: Props) => {
 
 const Group = ({ children, className }: Props) => {
   return (
-    <div className={cn("flex flex-wrap gap-2", className)}>{children}</div>
+    <div
+      data-testid="badge-group"
+      className={cn("flex flex-wrap gap-2", className)}
+    >
+      {children}
+    </div>
   );
 };
 

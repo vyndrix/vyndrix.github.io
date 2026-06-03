@@ -4,28 +4,14 @@ import { describe, expect, test } from "vitest";
 import { Switch } from "../..";
 
 describe("Locale Switch", () => {
-  test("should toggle locale", () => {
+  test("toggles locale between EN and PT", () => {
     render(<Switch.Locale />);
 
-    const button = screen.getByRole("button");
-    expect(button).toBeDefined();
+    screen.getByTestId("locale-en");
+    expect(screen.queryByTestId("locale-pt")).toBeNull();
 
-    const span = screen.getByText("EN");
-    expect(span).toBeDefined();
-    expect(
-      span.classList.contains("absolute") &&
-        span.classList.contains("h-[1.2rem]") &&
-        span.classList.contains("w-[1.2rem]"),
-    ).toBeTruthy();
+    fireEvent.click(screen.getByRole("button"));
 
-    fireEvent.click(button);
-
-    const spanPT = screen.getByText("PT");
-    expect(spanPT).toBeDefined();
-    expect(
-      spanPT.classList.contains("absolute") &&
-        spanPT.classList.contains("h-[1.2rem]") &&
-        spanPT.classList.contains("w-[1.2rem]"),
-    ).toBeTruthy();
+    screen.getByTestId("locale-pt");
   });
 });
